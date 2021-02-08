@@ -15,52 +15,43 @@ function PostItem({ post, admin = false }) {
 
   return (
     <>
-    {/* This example requires Tailwind CSS v2.0+ */}
-    <div className="bg-white overflow-hidden shadow rounded-lg">
-      <div className="px-4 py-5 sm:p-6">
-        {/* Content goes here */}
-        TEST
-      </div>
-    </div>
-    </>
+      {/* This example requires Tailwind CSS v2.0+ */}
+      <div className='bg-white overflow-hidden shadow rounded-lg'>
+        <div className='px-4 py-5 sm:p-6'>
+          {/* Content goes here */}
+          <Link href={`/${post.username}`}>
+            <a>
+              <strong>By @{post.username}</strong>
+            </a>
+          </Link>
+          <Link href={`/${post.username}/${post.slug}`}>
+            <h2>
+              <a>{post.title}</a>
+            </h2>
+          </Link>
+          <footer>
+            <span>
+              {wordCount} words. {minutesToRead} min read //{' '}
+            </span>
 
+            <span className='push-left'>💗 {post.heartCount || 0} Hearts</span>
+            {admin && (
+              <>
+                <Link href={`/admin/${post.slug}`}>
+                  <h3>
+                    <button className='btn-blue'>Edit</button>
+                  </h3>
+                </Link>
+                {post.published ? (
+                  <p className='text-success'>Live</p>
+                ) : (
+                  <p className='text-danger'>Unpublished</p>
+                )}
+              </>
+            )}
+          </footer>
+        </div>
+      </div>
+    </>
   )
 }
-
-
-
-// <Link href={`/${post.username}`}>
-// <a>
-//   <strong>By @{post.username}</strong>
-// </a>
-// </Link>
-
-// <Link href={`/${post.username}/${post.slug}`}>
-// <h2>
-//   <a>{post.title}</a>
-// </h2>
-// </Link>
-
-// <footer>
-// <span>
-//   {wordCount} words. {minutesToRead} min read
-// </span>
-// <span className='push-left'>💗 {post.heartCount || 0} Hearts</span>
-// </footer>
-
-// {/* If admin view, show extra controls for user */}
-// {admin && (
-// <>
-//   <Link href={`/admin/${post.slug}`}>
-//     <h3>
-//       <button className='btn-blue'>Edit</button>
-//     </h3>
-//   </Link>
-
-//   {post.published ? (
-//     <p className='text-success'>Live</p>
-//   ) : (
-//     <p className='text-danger'>Unpublished</p>
-//   )}
-// </>
-// )}

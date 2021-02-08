@@ -14,7 +14,7 @@ export default function SignUp({}) {
   const { user, username } = useContext(UserContext)
 
   return (
-    <main className='min-h-screen  flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8'>
+    <main className='min-h-screen flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8'>
       {user ? !username ? <UserNameForm /> : <LoggedInPage /> : <SignInForm />}
     </main>
   )
@@ -22,8 +22,43 @@ export default function SignUp({}) {
 
 function LoggedInPage() {
   return (
-    <div>
-      <h1>Logged in</h1>
+    <div className='h-full flex-1'>
+      <>
+        <header>
+          <div className='max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8'>
+            <h1 className='text-2xl leading-6 font-semibold text-gray-900 sm:text-3xl md:text-4xl'>
+              Dashboard
+            </h1>
+          </div>
+        </header>
+        <div>
+          <div className='max-w-7xl mx-auto py-6 sm:px-6 lg:px-8'>
+            {/* Replace with your content */}
+            <div className='px-4 py-4 sm:px-0 grid grid-cols-1 gap-3 sm:grid-cols-3'>
+              <div className='rounded-lg col-span-1 mb-10'>
+                <h3 className='text-2xl font-medium mb-4'>
+                  Total Post Reactions
+                </h3>
+                <h2 className='text-4xl sm:text-6xl font-medium'>0</h2>
+              </div>
+              <div className=' rounded-lg col-span-1 mb-10'>
+                <h3 className='text-2xl font-medium mb-4'>Total Post Views</h3>
+                <h2 className='text-4xl sm:text-6xl font-medium'>0</h2>
+              </div>
+              <div className=' rounded-lg col-span-1 mb-10'>
+                <h3 className='text-2xl font-medium mb-4'>Total Posts</h3>
+                <h2 className='text-4xl sm:text-6xl font-medium'>0</h2>
+              </div>
+            </div>
+            <div className='px-4 py-4 mt-10 sm:px-0 grid grid-cols-1 gap-3'>
+              <div className=' rounded-lg col-span-1'>
+                <h3 className='text-3xl font-medium mb-10'>Posts</h3>
+              </div>
+            </div>
+            {/* /End replace */}
+          </div>
+        </div>
+      </>
     </div>
   )
 }

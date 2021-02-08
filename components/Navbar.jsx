@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { auth } from '../lib/firebase'
 import { UserContext } from '../lib/context'
 
-function LoggedIn({ username }) {
+function LoggedIn({ username, user }) {
   const [showPopup, setPopup] = useState(false)
   return (
     <>
@@ -37,7 +37,7 @@ function LoggedIn({ username }) {
                 <span className='sr-only'>Open user menu</span>
                 <img
                   className='h-8 w-8 rounded-full'
-                  src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixqx=254FAGhISO&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+                  src={user.photoURL}
                   alt
                 />
               </button>
@@ -53,6 +53,14 @@ function LoggedIn({ username }) {
               aria-orientation='vertical'
               aria-labelledby='user-menu'
             >
+              <Link href={`/dashboard`}>
+                <a
+                  className='block px-4 py-2 text-gray-700 hover:bg-gray-100'
+                  role='menuitem'
+                >
+                   Dashboard
+                </a>
+              </Link>
               <Link href={`/${username}`}>
                 <a
                   className='block px-4 py-2 text-gray-700 hover:bg-gray-100'
@@ -63,7 +71,7 @@ function LoggedIn({ username }) {
               </Link>
               <button
                 onClick={() => auth.signOut()}
-                className='block px-4 py-2 text-gray-700 hover:bg-gray-100'
+                className='block text-left w-full px-4 py-2 text-gray-700 hover:bg-gray-100'
                 role='menuitem'
               >
                 Sign out
@@ -139,7 +147,7 @@ export default function Navbar() {
                 </Link>
               </div>
             </div>
-            {username ? <LoggedIn username={username} /> : <LoggedOut />}
+            {username ? <LoggedIn username={username} user={user} /> : <LoggedOut />}
           </div>
         </div>
         {username && (
@@ -149,16 +157,16 @@ export default function Navbar() {
                 <div className='flex-shrink-0'>
                   <img
                     className='h-10 w-10 rounded-full'
-                    src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixqx=254FAGhISO&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+                    src={user.photoURL}
                     alt
                   />
                 </div>
                 <div className='ml-3'>
                   <div className='text-base font-medium text-gray-800'>
-                    Tom Cook
+                    {user.displayName}
                   </div>
                   <div className='text-sm font-medium text-gray-500'>
-                    tom@example.com
+                    @{username}
                   </div>
                 </div>
               </div>

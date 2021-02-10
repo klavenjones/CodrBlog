@@ -21,6 +21,10 @@ html {
   border-top-color: rgba(96, 165, 250, 1);
 }
 
+h1,h2,h3,h4,h5,h6{
+  @apply font-bold
+}
+
 h1 {
   @apply text-4xl;
 }
@@ -46,10 +50,14 @@ a {
   @apply cursor-pointer no-underline hover:text-indigo-600;
 }
 
-/* ul{
+ul{
   @apply list-disc;
-} */
+}
 
 ol {
   @apply list-decimal
+}
+
+ul, ol {
+   @apply pl-10
 }

@@ -8,6 +8,7 @@ import { UserContext } from '../lib/context'
 
 function LoggedIn({ username, user }) {
   const [showPopup, setPopup] = useState(false)
+
   return (
     <>
       <div className='flex items-center'>
@@ -37,7 +38,10 @@ function LoggedIn({ username, user }) {
                 <span className='sr-only'>Open user menu</span>
                 <img
                   className='h-8 w-8 rounded-full'
-                  src={user.photoURL}
+                  src={
+                    user?.photoURL ||
+                    'https://www.google.com/url?sa=i&url=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FFile%3AProfile_avatar_placeholder_large.png&psig=AOvVaw0i-Fw-RSoRjKSkgMT6X4AD&ust=1612978742869000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOi8kpqs3e4CFQAAAAAdAAAAABAI'
+                  }
                   alt
                 />
               </button>
@@ -58,7 +62,7 @@ function LoggedIn({ username, user }) {
                   className='block px-4 py-2 text-gray-700 hover:bg-gray-100'
                   role='menuitem'
                 >
-                   Dashboard
+                  Dashboard
                 </a>
               </Link>
               <Link href={`/${username}`}>
@@ -147,7 +151,11 @@ export default function Navbar() {
                 </Link>
               </div>
             </div>
-            {username ? <LoggedIn username={username} user={user} /> : <LoggedOut />}
+            {username ? (
+              <LoggedIn username={username} user={user} />
+            ) : (
+              <LoggedOut />
+            )}
           </div>
         </div>
         {username && (
@@ -157,13 +165,16 @@ export default function Navbar() {
                 <div className='flex-shrink-0'>
                   <img
                     className='h-10 w-10 rounded-full'
-                    src={user.photoURL}
+                    src={
+                      user?.photoURL ||
+                      'https://www.google.com/url?sa=i&url=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FFile%3AProfile_avatar_placeholder_large.png&psig=AOvVaw0i-Fw-RSoRjKSkgMT6X4AD&ust=1612978742869000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOi8kpqs3e4CFQAAAAAdAAAAABAI'
+                    }
                     alt
                   />
                 </div>
                 <div className='ml-3'>
                   <div className='text-base font-medium text-gray-800'>
-                    {user.displayName}
+                    {user?.displayName}
                   </div>
                   <div className='text-sm font-medium text-gray-500'>
                     @{username}

@@ -9,12 +9,14 @@ import toast from 'react-hot-toast'
 import debounce from 'lodash.debounce'
 import { UserContext } from '../lib/context'
 import { FaGoogle, FaGithub } from 'react-icons/fa'
+import Metatags from '../components/MetaTags'
 
 export default function SignUp({}) {
   const { user, username } = useContext(UserContext)
 
   return (
     <main className='min-h-screen flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8'>
+      <Metatags title='dashboard' />
       {user ? !username ? <UserNameForm /> : <LoggedInPage /> : <SignInForm />}
     </main>
   )

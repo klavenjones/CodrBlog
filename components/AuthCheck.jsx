@@ -17,7 +17,7 @@ export default function AuthCheck(props) {
   const { username } = useContext(UserContext)
   return username
     ? props.children
-    : <Redirect to='/dashboard' /> || (
-        <Link href='/dashboard'>You must be signed in</Link>
-      )
+    : props.fallback || (
+          <Link href='/dashboard'>You must be signed in</Link>
+        ) || <Redirect to='/dashboard' />
 }

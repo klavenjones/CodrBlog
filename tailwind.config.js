@@ -9,6 +9,9 @@ module.exports = {
       borderRadius: {
         half: '50%',
       },
+      height: {
+        'screen-60': '60vh',
+      },
     },
   },
   variants: {

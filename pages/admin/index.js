@@ -34,7 +34,7 @@ function PostList() {
   const posts = querySnapshot?.docs.map((doc) => doc.data())
 
   return (
-    <div class='mt-8 space-y-4 sm:mx-auto sm:w-full sm:max-w-xl'>
+    <div className='mt-8 space-y-4 sm:mx-auto sm:w-full sm:max-w-xl'>
       <h1 className='text-4xl'>Manage your Posts</h1>
       <PostFeed posts={posts} admin />
     </div>
@@ -43,7 +43,7 @@ function PostList() {
 
 function CreateNewPost() {
   const router = useRouter()
-  const { username } = useContext(UserContext)
+  const { username, user } = useContext(UserContext)
   const [title, setTitle] = useState('')
 
   // Ensure slug is URL safe
@@ -67,6 +67,7 @@ function CreateNewPost() {
       title,
       slug,
       uid,
+      photoURL: user.photoURL,
       username,
       published: false,
       content: '# hello world!',
@@ -84,8 +85,8 @@ function CreateNewPost() {
   }
 
   return (
-    <div class='mt-8 sm:mx-auto sm:w-full sm:max-w-xl'>
-      <div class='py-8 sm:rounded-lg'>
+    <div className='mt-8 sm:mx-auto sm:w-full sm:max-w-xl'>
+      <div className='py-8 sm:rounded-lg'>
         <form onSubmit={createPost} className='space-y-6'>
           <label
             htmlFor='title'

@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import ReactMarkdown from 'react-markdown'
+import { format } from 'date-fns'
 
 // UI component for main post content
 export default function PostContent({ post }) {
@@ -16,7 +17,7 @@ export default function PostContent({ post }) {
         <Link href={`/${post.username}/`}>
           <a className='text-info'>@{post.username}</a>
         </Link>{' '}
-        on {createdAt.toISOString()}
+        on {createdAt && format(new Date(createdAt), 'MMM d')}
       </span>
       <ReactMarkdown>{post?.content}</ReactMarkdown>
     </div>

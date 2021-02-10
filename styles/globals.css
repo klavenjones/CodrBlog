@@ -4,8 +4,10 @@
 body {
   position: relative;
   padding-top: 50px;
-  @apply bg-gray-100
+  @apply bg-gray-100;
 }
+
+
 html {
   scroll-behavior: smooth;
 }
@@ -17,4 +19,37 @@ html {
 .loader {
   @apply border-10 border-t-10  w-20 h-20 rounded-half animate-spin;
   border-top-color: rgba(96, 165, 250, 1);
+}
+
+h1 {
+  @apply text-4xl;
+}
+
+h2 {
+  @apply text-2xl;
+}
+
+h3 {
+  @apply text-xl;
+}
+
+code {
+  @apply overflow-x-scroll;
+}
+
+pre {
+  @apply font-mono;
+}
+
+
+a {
+  @apply cursor-pointer no-underline hover:text-indigo-600;
+}
+
+/* ul{
+  @apply list-disc;
+} */
+
+ol {
+  @apply list-decimal
 }

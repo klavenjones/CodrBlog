@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { format, formatDistanceToNow } from 'date-fns'
 
 export default function PostFeed({ posts, admin }) {
   return posts
@@ -13,6 +14,13 @@ function PostItem({ post, admin = false }) {
   const wordCount = post?.content.trim().split(/\s+/g).length
   const minutesToRead = (wordCount / 100 + 1).toFixed(0)
 
+  const createdAt =
+    post.createdAt && post?.createdAt?.toDate()
+      ? new Date(post.createdAt.toDate())
+      : post.createdAt?.seconds
+
+  console.log(post?.createdAt)
+
   return (
     <>
       {/* This example requires Tailwind CSS v2.0+ */}
@@ -20,13 +28,22 @@ function PostItem({ post, admin = false }) {
         <div className='flex space-x-3'>
           <img
             className='h-10 w-10 rounded-full'
-            src='https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixqx=254FAGhISO&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3&w=256&h=256&q=80'
+            src={
+              post.photoURL ||
+              'https://www.pngitem.com/pimgs/m/421-4212617_person-placeholder-image-transparent-hd-png-download.png'
+            }
             alt
           />
+
           <div className='flex-1 space-y-3'>
             <div className='flex flex-col justify-between'>
               <h3 className='text-sm font-medium'>{post.username}</h3>
-              <p className='text-xs text-gray-400'>Published Feb 7</p>
+              <p className='text-xs text-gray-400'>
+                Published {createdAt && format(new Date(createdAt), 'MMM d')} (
+                {createdAt &&
+                  formatDistanceToNow(new Date(createdAt), 'MMM dd')}
+                )
+              </p>
             </div>
             <Link href={`/${post.username}/${post.slug}`}>
               <h2 className='text-3xl font-bold cursor-pointer transition-all duration-100 hover:text-indigo-600'>

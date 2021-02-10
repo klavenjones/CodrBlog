@@ -66,7 +66,7 @@ function LoggedInPage() {
 }
 
 function SignInForm() {
-  console.log(auth)
+  
 
   const signInWithGoogle = async () => {
     await auth.signInWithPopup(googleProvider)

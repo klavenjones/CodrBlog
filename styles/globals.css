@@ -7,7 +7,6 @@ body {
   @apply bg-gray-100;
 }
 
-
 html {
   scroll-behavior: smooth;
 }
@@ -21,8 +20,18 @@ html {
   border-top-color: rgba(96, 165, 250, 1);
 }
 
-h1,h2,h3,h4,h5,h6{
-  @apply font-bold
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-bold;
+  margin: 20px 0 10px;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative;
 }
 
 h1 {
@@ -45,19 +54,30 @@ pre {
   @apply font-mono;
 }
 
-
 a {
-  @apply cursor-pointer no-underline hover:text-indigo-600;
+  @apply cursor-pointer no-underline text-indigo-500 hover:text-indigo-600;
 }
 
-ul{
+ul {
   @apply list-disc;
 }
 
 ol {
-  @apply list-decimal
+  @apply list-decimal;
 }
 
-ul, ol {
-   @apply pl-10
+ul,
+ol {
+  @apply pl-10;
+}
+
+p,
+blockquote,
+ul,
+ol,
+dl,
+li,
+table,
+pre {
+  @apply my-5;
 }

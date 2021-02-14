@@ -3,23 +3,21 @@ import { AiOutlineMenu } from 'react-icons/ai'
 import { BiPencil } from 'react-icons/bi'
 import { MdClose } from 'react-icons/md'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { auth } from '../lib/firebase'
 import { UserContext } from '../lib/context'
 
 function LoggedIn({ username, user }) {
   const [showPopup, setPopup] = useState(false)
-
+  const router = useRouter()
   return (
     <>
       <div className='flex items-center'>
         <div className='flex-shrink-0'>
           <Link href='/admin'>
-            <button
-              type='button'
-              className='relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-            >
+            <button type='button' className='btn btn-blue'>
               {/* Heroicon name: solid/plus */}
-              
+
               <BiPencil className='-ml-1 mr-2 h-5 w-5' />
               <span>Write Post</span>
             </button>
@@ -74,7 +72,10 @@ function LoggedIn({ username, user }) {
                 </a>
               </Link>
               <button
-                onClick={() => auth.signOut()}
+                onClick={() => {
+                  auth.signOut()
+                  router.push('/dashboard')
+                }}
                 className='block text-left w-full px-4 py-2 text-gray-700 hover:bg-gray-100'
                 role='menuitem'
               >
@@ -94,10 +95,7 @@ function LoggedOut() {
       <div className='flex items-center'>
         <div className='flex-shrink-0'>
           <Link href='/dashboard'>
-            <button
-              type='button'
-              className='relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-            >
+            <button type='button' className='btn btn-blue'>
               {/* Heroicon name: solid/plus */}
 
               <span>Log In</span>
@@ -145,7 +143,7 @@ export default function Navbar() {
               )}
               <div className='flex-shrink-0 flex items-center'>
                 <Link href='/'>
-                  <h1 className='p-2 text-2xl text-white bg-black font-medium rounded uppercase'>
+                  <h1 className='p-2 text-2xl text-white bg-black hover:bg-gray-800 font-medium rounded uppercase cursor-pointer'>
                     Codr
                   </h1>
                 </Link>

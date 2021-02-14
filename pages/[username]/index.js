@@ -35,7 +35,7 @@ export async function getServerSideProps({ query }) {
 
 export default function UserProfilePage({ user, posts }) {
   return (
-    <main className='min-h-screen py-12 px-4 sm:px-6 lg:px-10'>
+    <main className='min-h-screen space-y-12 py-12 px-4 sm:px-6 lg:px-10'>
       <UserProfile user={user} />
       <PostFeed posts={posts} />
     </main>

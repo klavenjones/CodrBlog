@@ -1,7 +1,8 @@
-import AuthCheck from '../../components/AuthCheck'
-import { firestore, auth, serverTimestamp } from '../../lib/firebase'
-
-import { useState } from 'react'
+import AuthCheck, { Redirect } from '../../components/AuthCheck'
+import ImageUploader from '../../components/ImageUploader'
+import { firestore, serverTimestamp } from '../../lib/firebase'
+import { UserContext } from '../lib/context'
+import { useState, useContext } from 'react'
 import { useRouter } from 'next/router'
 
 import { useDocumentDataOnce } from 'react-firebase-hooks/firestore'
@@ -11,14 +12,15 @@ import Link from 'next/link'
 import toast from 'react-hot-toast'
 
 export default function AdminPostEdit(props) {
+  const { user, username } = useContext(UserContext)
   return (
-    <AuthCheck>
-      <PostManager />
+    <AuthCheck fallback={<Redirect to='/' />}>
+      <PostManager user={user} />
     </AuthCheck>
   )
 }
 
-function PostManager() {
+function PostManager({ user }) {
   const [preview, setPreview] = useState(false)
 
   const router = useRouter()
@@ -26,7 +28,7 @@ function PostManager() {
 
   const postRef = firestore
     .collection('users')
-    .doc(auth.currentUser.uid)
+    .doc(user.uid)
     .collection('posts')
     .doc(slug)
 
@@ -38,7 +40,9 @@ function PostManager() {
         <>
           <section className='col-span-3 space-y-14'>
             <div className='mb-5 border-gray-200'>
-              <h3 className='text-6xl font-bold text-gray-900'>{post.title}</h3>
+              <h3 className='text-3xl sm:text-5xl font-bold text-gray-900'>
+                {post.title}
+              </h3>
             </div>
 
             <PostForm
@@ -61,12 +65,7 @@ function PostManager() {
                 Live view
               </button>
             </Link>
-            <button
-              className='justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md  text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500'
-              onClick={() => setPreview(!preview)}
-            >
-              Delete
-            </button>
+            <DeletePostButton postRef={postRef} />
           </aside>
         </>
       )}
@@ -75,10 +74,12 @@ function PostManager() {
 }
 
 function PostForm({ defaultValues, postRef, preview }) {
-  const { register, handleSubmit, reset, watch } = useForm({
+  const { register, handleSubmit, reset, watch, formState, errors } = useForm({
     defaultValues,
     mode: 'onChange',
   })
+
+  const { isValid, isDirty } = formState
 
   const updatePost = async ({ content, published }) => {
     await postRef.update({
@@ -97,16 +98,21 @@ function PostForm({ defaultValues, postRef, preview }) {
   return (
     <form onSubmit={handleSubmit(updatePost)}>
       {preview && (
-        <div className='card'>
+        <div className='content-card'>
           <ReactMarkdown>{watch('content')}</ReactMarkdown>
         </div>
       )}
 
       <div className={`flex-col space-y-8 ${preview ? 'hidden' : 'flex'}`}>
+        <ImageUploader />
         <textarea
           name='content'
-          className='h-screen-60 shadow-sm w-full focus:ring-indigo-500 focus:border-indigo-500 sm:text-2xl border-gray-300 rounded-md'
-          ref={register}
+          className='h-screen-60 shadow-sm w-full focus:ring-indigo-500 focus:border-indigo-500 sm:text-xl border-gray-300 rounded-md'
+          ref={register({
+            maxLength: { value: 20000, message: 'content is too long' },
+            minLength: { value: 10, message: 'content is too short' },
+            required: { value: true, message: 'content is required' },
+          })}
         ></textarea>
 
         <fieldset>
@@ -134,10 +140,30 @@ function PostForm({ defaultValues, postRef, preview }) {
         <button
           type='submit'
           className='inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:max-w-xs'
+          disabled={!isDirty || !isValid}
         >
           Save Changes
         </button>
       </div>
     </form>
+  )
+}
+
+function DeletePostButton({ postRef }) {
+  const router = useRouter()
+
+  const deletePost = async () => {
+    const doIt = confirm('are you sure!')
+    if (doIt) {
+      await postRef.delete()
+      router.push('/admin')
+      toast('post annihilated ', { icon: '🗑️' })
+    }
+  }
+
+  return (
+    <button className='btn btn-red justify-center' onClick={deletePost}>
+      Delete
+    </button>
   )
 }

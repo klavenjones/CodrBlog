@@ -5,24 +5,65 @@ import {
   githubProvider,
   googleProvider,
 } from '../lib/firebase'
+import { useCollection } from 'react-firebase-hooks/firestore'
 import toast from 'react-hot-toast'
 import debounce from 'lodash.debounce'
 import { UserContext } from '../lib/context'
 import { FaGoogle, FaGithub } from 'react-icons/fa'
 import Metatags from '../components/MetaTags'
+import AuthCheck from '../components/AuthCheck'
 
-export default function SignUp({}) {
+export default function SignUp() {
   const { user, username } = useContext(UserContext)
 
   return (
     <main className='min-h-screen flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8'>
       <Metatags title='dashboard' />
-      {user ? !username ? <UserNameForm /> : <LoggedInPage /> : <SignInForm />}
+      {user ? (
+        !username ? (
+          <UserNameForm />
+        ) : (
+          <AuthCheck>
+            <LoggedInPage user={user} />
+          </AuthCheck>
+        )
+      ) : (
+        <SignInForm />
+      )}
     </main>
   )
 }
 
-function LoggedInPage() {
+function LoggedInPage({ user }) {
+  console.log('User', user)
+  console.log('Auth User', auth.currentUser)
+  const ref = firestore.collection('users').doc(user.uid).collection('posts')
+
+  const query = ref.orderBy('createdAt')
+  const [querySnapshot] = useCollection(query)
+
+  const posts = querySnapshot?.docs.map((doc) => doc.data())
+  const [totalPost, setPosts] = useState(0)
+  const [totalHearts, setHearts] = useState(0)
+
+  console.log("Possstss",posts)
+
+  useEffect(() => {
+    let total = posts && posts.length
+    let amount =
+      posts &&
+      posts.reduce((a, i) => {
+        return a + i.heartCount
+      }, 0)
+
+    setPosts(total)
+    setHearts(amount)
+  })
+
+  useEffect(() => {
+    console.log('FIRED')
+  }, [totalPost])
+
   return (
     <div className='h-full flex-1'>
       <>
@@ -37,26 +78,33 @@ function LoggedInPage() {
           <div className='max-w-7xl mx-auto py-6 sm:px-6 lg:px-8'>
             {/* Replace with your content */}
             <div className='px-4 py-4 sm:px-0 grid grid-cols-1 gap-3 sm:grid-cols-3'>
-              <div className='rounded-lg col-span-1 mb-10'>
+              <div className='rounded-lg col-span-1 mb-10 content-card'>
                 <h3 className='text-2xl font-medium mb-4'>
-                  Total Post Reactions
+                  Total Hearts
                 </h3>
-                <h2 className='text-4xl sm:text-6xl font-medium'>0</h2>
+                <h2 className='text-4xl sm:text-6xl font-medium'>
+                  {totalHearts}
+                </h2>
               </div>
-              <div className=' rounded-lg col-span-1 mb-10'>
+              {/* <div className=' rounded-lg col-span-1 mb-10 content-card'>
                 <h3 className='text-2xl font-medium mb-4'>Total Post Views</h3>
                 <h2 className='text-4xl sm:text-6xl font-medium'>0</h2>
-              </div>
-              <div className=' rounded-lg col-span-1 mb-10'>
-                <h3 className='text-2xl font-medium mb-4'>Total Posts</h3>
-                <h2 className='text-4xl sm:text-6xl font-medium'>0</h2>
+              </div> */}
+              <div className=' rounded-lg col-span-1 mb-10 content-card'>
+                <h3 className='text-2xl font-medium mb-4'>
+                  Total Published Posts
+                </h3>
+                <h2 className='text-4xl sm:text-6xl font-medium'>
+                  {totalPost}
+                </h2>
               </div>
             </div>
-            <div className='px-4 py-4 mt-10 sm:px-0 grid grid-cols-1 gap-3'>
-              <div className=' rounded-lg col-span-1'>
+            {/* <div className='px-4 py-4 mt-10 sm:px-0 grid grid-cols-1 gap-3'>
+              <div className='rounded-lg col-span-1 space-y-14'>
                 <h3 className='text-3xl font-medium mb-10'>Posts</h3>
+                <PostFeed posts={posts} />
               </div>
-            </div>
+            </div> */}
             {/* /End replace */}
           </div>
         </div>
@@ -66,8 +114,6 @@ function LoggedInPage() {
 }
 
 function SignInForm() {
-  
-
   const signInWithGoogle = async () => {
     await auth.signInWithPopup(googleProvider)
   }

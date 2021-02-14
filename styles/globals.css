@@ -47,11 +47,15 @@ h3 {
 }
 
 code {
-  @apply overflow-x-scroll;
+  @apply overflow-x-scroll p-2 bg-gray-200 rounded-lg sm:overflow-x-hidden;
 }
 
 pre {
-  @apply font-mono;
+  @apply font-mono bg-gray-200 rounded-xl p-2 block;
+}
+
+pre code {
+  @apply p-0 block;
 }
 
 a {
@@ -80,4 +84,36 @@ li,
 table,
 pre {
   @apply my-5;
+}
+
+input[type='file'] {
+  display: none;
+}
+
+.content-card {
+  @apply p-8 border border-gray-400 rounded-lg bg-white;
+}
+
+.btn {
+  @apply relative inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white shadow-sm focus:outline-none;
+}
+
+.btn-blue {
+  @apply bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500;
+}
+
+.btn-red {
+  @apply bg-red-600 hover:bg-red-700 focus:ring-red-500;
+}
+
+.btn-green {
+  @apply bg-green-600 hover:bg-green-700 focus:ring-green-500;
+}
+
+.btn-gray {
+  @apply bg-gray-400 hover:bg-gray-700 focus:ring-gray-500;
+}
+
+.btn-white {
+  @apply bg-white hover:bg-gray-100 focus:ring-gray-300 text-gray-600;
 }

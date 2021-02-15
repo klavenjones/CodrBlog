@@ -45,7 +45,7 @@ function PostItem({ post, admin = false }) {
                 post.photoURL ||
                 'https://www.pngitem.com/pimgs/m/421-4212617_person-placeholder-image-transparent-hd-png-download.png'
               }
-              alt
+              alt="User Avatar"
             />
             <div className='flex flex-col justify-between '>
               <h3 className='text-base -mb-4 font-medium'>{post.username}</h3>

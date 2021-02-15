@@ -35,8 +35,6 @@ export default function SignUp() {
 }
 
 function LoggedInPage({ user }) {
-  console.log('User', user)
-  console.log('Auth User', auth.currentUser)
   const ref = firestore.collection('users').doc(user.uid).collection('posts')
 
   const query = ref.orderBy('createdAt')
@@ -45,8 +43,6 @@ function LoggedInPage({ user }) {
   const posts = querySnapshot?.docs.map((doc) => doc.data())
   const [totalPost, setPosts] = useState(0)
   const [totalHearts, setHearts] = useState(0)
-
-  console.log("Possstss",posts)
 
   useEffect(() => {
     let total = posts && posts.length
@@ -59,10 +55,6 @@ function LoggedInPage({ user }) {
     setPosts(total)
     setHearts(amount)
   })
-
-  useEffect(() => {
-    console.log('FIRED')
-  }, [totalPost])
 
   return (
     <div className='h-full flex-1'>
@@ -79,9 +71,7 @@ function LoggedInPage({ user }) {
             {/* Replace with your content */}
             <div className='px-4 py-4 sm:px-0 grid grid-cols-1 gap-3 sm:grid-cols-3'>
               <div className='rounded-lg col-span-1 mb-10 content-card'>
-                <h3 className='text-2xl font-medium mb-4'>
-                  Total Hearts
-                </h3>
+                <h3 className='text-2xl font-medium mb-4'>Total Hearts</h3>
                 <h2 className='text-4xl sm:text-6xl font-medium'>
                   {totalHearts}
                 </h2>
@@ -91,9 +81,7 @@ function LoggedInPage({ user }) {
                 <h2 className='text-4xl sm:text-6xl font-medium'>0</h2>
               </div> */}
               <div className=' rounded-lg col-span-1 mb-10 content-card'>
-                <h3 className='text-2xl font-medium mb-4'>
-                  Total Published Posts
-                </h3>
+                <h3 className='text-2xl font-medium mb-4'>Total Posts</h3>
                 <h2 className='text-4xl sm:text-6xl font-medium'>
                   {totalPost}
                 </h2>
@@ -115,10 +103,18 @@ function LoggedInPage({ user }) {
 
 function SignInForm() {
   const signInWithGoogle = async () => {
-    await auth.signInWithPopup(googleProvider)
+    try {
+      await auth.signInWithPopup(googleProvider)
+    } catch (error) {
+      toast.error(error.message)
+    }
   }
   const signInWithGithub = async () => {
-    await auth.signInWithPopup(githubProvider)
+    try {
+      await auth.signInWithPopup(githubProvider)
+    } catch (error) {
+      toast.error(error.message)
+    }
   }
 
   return (
@@ -223,7 +219,6 @@ function UserNameForm() {
 
       await batch.commit()
     } catch (error) {
-      console.log(error)
       toast.error(error.message)
     }
   }
@@ -260,7 +255,7 @@ function UserNameForm() {
       if (username.length >= 3) {
         const ref = firestore.doc(`usernames/${username}`)
         const { exists } = await ref.get()
-        console.log('Firestore read executed!')
+
         setIsValid(!exists)
         setLoading(false)
       }

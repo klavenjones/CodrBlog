@@ -10,7 +10,7 @@ export default function UserProfile({ user }) {
             <img
               className='h-40 w-40 rounded-full'
               src={user.photoURL || '/hacker.png'}
-              alt
+              alt="User Avatar"
             />
           </div>
 

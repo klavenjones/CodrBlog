@@ -43,7 +43,7 @@ export default function Home(props) {
       .limit(LIMIT)
 
     const newPosts = (await query.get()).docs.map((doc) => doc.data())
-    console.log(newPosts)
+
     setPosts(posts.concat(newPosts))
     setLoading(false)
 
@@ -58,7 +58,7 @@ export default function Home(props) {
       <div className='px-10 space-y-6'>
         <PostFeed posts={posts} />
 
-        {!loading && !postsEnd && (
+        {posts.length > 0 && !loading && !postsEnd && (
           <button
             className='inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 sm:max-w-xs'
             onClick={getMorePosts}
@@ -66,6 +66,7 @@ export default function Home(props) {
             Load more
           </button>
         )}
+
         <Loader show={loading} />
         <p>{postsEnd && 'You have reached the end!'}</p>
       </div>

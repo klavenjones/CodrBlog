@@ -1,7 +1,7 @@
 import AuthCheck, { Redirect } from '../../components/AuthCheck'
 import ImageUploader from '../../components/ImageUploader'
 import { firestore, serverTimestamp } from '../../lib/firebase'
-import { UserContext } from '../lib/context'
+import { UserContext } from '../../lib/context'
 import { useState, useContext } from 'react'
 import { useRouter } from 'next/router'
 
@@ -92,9 +92,7 @@ function PostForm({ defaultValues, postRef, preview }) {
 
     toast.success('Post updated successfully!')
   }
-  {
-    console.log(watch('content'))
-  }
+
   return (
     <form onSubmit={handleSubmit(updatePost)}>
       {preview && (

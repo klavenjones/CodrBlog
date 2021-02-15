@@ -40,7 +40,7 @@ function LoggedIn({ username, user }) {
                     user?.photoURL ||
                     'https://www.google.com/url?sa=i&url=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FFile%3AProfile_avatar_placeholder_large.png&psig=AOvVaw0i-Fw-RSoRjKSkgMT6X4AD&ust=1612978742869000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOi8kpqs3e4CFQAAAAAdAAAAABAI'
                   }
-                  alt
+                  alt="Blog Logo"
                 />
               </button>
             </div>
@@ -167,7 +167,7 @@ export default function Navbar() {
                       user?.photoURL ||
                       'https://www.google.com/url?sa=i&url=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FFile%3AProfile_avatar_placeholder_large.png&psig=AOvVaw0i-Fw-RSoRjKSkgMT6X4AD&ust=1612978742869000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOi8kpqs3e4CFQAAAAAdAAAAABAI'
                     }
-                    alt
+                    alt="User Avatar"
                   />
                 </div>
                 <div className='ml-3'>

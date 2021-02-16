@@ -279,8 +279,8 @@ function UserNameForm() {
                   <div className='relative rounded-md shadow-sm'>
                     <input
                       type='text'
-                      name='email'
-                      id='email'
+                      name='text'
+                      id='text'
                       className={`block w-full pr-10 text-gray-800 border-gray-400 focus:outline-none sm:text-sm rounded-md ${
                         isValid
                           ? 'focus:ring-green-500 focus:border-green-500'
@@ -288,7 +288,7 @@ function UserNameForm() {
                           ? 'focus:ring-red-500 focus:border-red-500'
                           : 'focus:outline-none'
                       }`}
-                      placeholder='you@example.com'
+                      placeholder='Create a username'
                       value={formValue}
                       onChange={onChange}
                       aria-invalid='true'

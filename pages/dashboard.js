@@ -10,7 +10,7 @@ import toast from 'react-hot-toast'
 import debounce from 'lodash.debounce'
 import { UserContext } from '../lib/context'
 import { FaGoogle, FaGithub } from 'react-icons/fa'
-import Metatags from '../components/MetaTags'
+import Metatags from '../components/Metatags'
 import AuthCheck from '../components/AuthCheck'
 
 export default function SignUp() {

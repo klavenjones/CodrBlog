@@ -1,9 +1,9 @@
 import Head from 'next/head'
 
 export default function Metatags({
-  title = 'The Full Next.js + Firebase Course',
-  description = 'A complete Next.js + Firebase course by Fireship.io',
-  image = 'https://fireship.io/courses/react-next-firebase/img/featured.png',
+  title = 'A blog for people who love Code!',
+  description = 'Codr Blog',
+  image = 'https://firebasestorage.googleapis.com/v0/b/next-blog-f258a.appspot.com/o/uploads%2FnnHHrvOxe7R5F6R0jFO0Ec0c2SK2%2F1613445697308.png?alt=media&token=85d929da-56f1-43a5-97e8-8b63e504aecc',
 }) {
   return (
     <Head>

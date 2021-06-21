@@ -1,3 +1,14 @@
+# CODR BLOG
+
+This is a simple blog application that allows developers to post blog posts to the website. 
+
+## Built with
+
+Firebase, Nextjs and Reactjs
+
+[Live Demo](https://codr-blog-5qwogcyfz.vercel.app/)
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

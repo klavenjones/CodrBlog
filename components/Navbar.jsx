@@ -36,11 +36,8 @@ function LoggedIn({ username, user }) {
                 <span className='sr-only'>Open user menu</span>
                 <img
                   className='h-8 w-8 rounded-full'
-                  src={
-                    user?.photoURL ||
-                    'https://www.google.com/url?sa=i&url=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FFile%3AProfile_avatar_placeholder_large.png&psig=AOvVaw0i-Fw-RSoRjKSkgMT6X4AD&ust=1612978742869000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOi8kpqs3e4CFQAAAAAdAAAAABAI'
-                  }
-                  alt="Blog Logo"
+                  src={user?.photoURL || '/anonymous.png'}
+                  alt='Blog Logo'
                 />
               </button>
             </div>
@@ -163,11 +160,8 @@ export default function Navbar() {
                 <div className='flex-shrink-0'>
                   <img
                     className='h-10 w-10 rounded-full'
-                    src={
-                      user?.photoURL ||
-                      'https://www.google.com/url?sa=i&url=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FFile%3AProfile_avatar_placeholder_large.png&psig=AOvVaw0i-Fw-RSoRjKSkgMT6X4AD&ust=1612978742869000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOi8kpqs3e4CFQAAAAAdAAAAABAI'
-                    }
-                    alt="User Avatar"
+                    src={user?.photoURL || '/anonymous.png'}
+                    alt='User Avatar'
                   />
                 </div>
                 <div className='ml-3'>

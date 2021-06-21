@@ -3,13 +3,13 @@ import {
   auth,
   firestore,
   githubProvider,
-  googleProvider,
+  googleProvider
 } from '../lib/firebase'
 import { useCollection } from 'react-firebase-hooks/firestore'
 import toast from 'react-hot-toast'
 import debounce from 'lodash.debounce'
 import { UserContext } from '../lib/context'
-import { FaGoogle, FaGithub } from 'react-icons/fa'
+import { FaGoogle, FaGithub, FaUser} from 'react-icons/fa'
 import Metatags from '../components/Metatags'
 import AuthCheck from '../components/AuthCheck'
 
@@ -68,7 +68,6 @@ function LoggedInPage({ user }) {
         </header>
         <div>
           <div className='max-w-7xl mx-auto py-6 sm:px-6 lg:px-8'>
-            {/* Replace with your content */}
             <div className='px-4 py-4 sm:px-0 grid grid-cols-1 gap-3 sm:grid-cols-3'>
               <div className='rounded-lg col-span-1 mb-10 content-card'>
                 <h3 className='text-2xl font-medium mb-4'>Total Hearts</h3>
@@ -76,10 +75,6 @@ function LoggedInPage({ user }) {
                   {totalHearts}
                 </h2>
               </div>
-              {/* <div className=' rounded-lg col-span-1 mb-10 content-card'>
-                <h3 className='text-2xl font-medium mb-4'>Total Post Views</h3>
-                <h2 className='text-4xl sm:text-6xl font-medium'>0</h2>
-              </div> */}
               <div className=' rounded-lg col-span-1 mb-10 content-card'>
                 <h3 className='text-2xl font-medium mb-4'>Total Posts</h3>
                 <h2 className='text-4xl sm:text-6xl font-medium'>
@@ -87,12 +82,7 @@ function LoggedInPage({ user }) {
                 </h2>
               </div>
             </div>
-            {/* <div className='px-4 py-4 mt-10 sm:px-0 grid grid-cols-1 gap-3'>
-              <div className='rounded-lg col-span-1 space-y-14'>
-                <h3 className='text-3xl font-medium mb-10'>Posts</h3>
-                <PostFeed posts={posts} />
-              </div>
-            </div> */}
+
             {/* /End replace */}
           </div>
         </div>
@@ -128,6 +118,18 @@ function SignInForm() {
         <div className='bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10'>
           <div className='mt-6'>
             <div className='mt-6 grid grid-cols-1 gap-3'>
+              <div>
+                <button
+                  onClick={() => auth.signInAnonymously()}
+                  className='w-full inline-flex justify-center items-center py-2 px-4 border rounded-md shadow-sm bg-gray-400 text-sm font-medium text-white hover:opacity-90'
+                >
+                  <span className='sr-only'>Sign in with Google</span>
+                  <FaUser className='w-6 h-6 mr-3' />
+                  <span className='text-white text-lg'>
+                    Sign in Anonymously
+                  </span>
+                </button>
+              </div>
               <div>
                 <button
                   onClick={() => signInWithGoogle()}
@@ -213,7 +215,7 @@ function UserNameForm() {
       batch.set(userDoc, {
         username: formValue,
         photoURL: user.photoURL,
-        displayName: user.displayName,
+        displayName: user.displayName
       })
       batch.set(usernameDoc, { uid: user.uid })
 
